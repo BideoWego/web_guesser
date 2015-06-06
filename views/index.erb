@@ -7,12 +7,21 @@
 	<body>
 		<div id="wrap">
 			<h1>Web Guesser</h1>
-			<h2>Secret number: <%= number %></h2>
-			<h2>Your guess: <%= guess %></h2>
-			<form>
-				<input type="text" name="guess"/>
-				<input type="submit" value="Guess"/>
-			</form>
+			<% if ! correct %>
+				<h2>Secret number: <%= number %></h2>
+			<% end %>
+			<% if guess != '' %>
+				<h2>Your guess: <%= guess %></h2>
+			<% end %>
+			<h2><%= response %></h2>
+			<% if ! correct %>
+				<form>
+					<input type="text" name="guess"/>
+					<input type="submit" value="Guess"/>
+				</form>
+			<% else %>
+				<a href="/">New game</a>
+			<% end %>
 		</div>
 	</body>
 </html>
