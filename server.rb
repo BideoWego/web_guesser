@@ -1,6 +1,7 @@
 require 'sinatra'
-require 'rerun'
+require 'sinatra/reloader'
 
 get '/'  do
-	'Hello Rerun!'	
+	x = rand(100)
+	"The secret number is: #{x.to_s}"
 end
