@@ -12,7 +12,13 @@ def get_locals
 	response = 'Guess any number between 0 and 100'
 	correct = false
 	guess = params['guess']
-	proximity = 'white'
+	proximities = {
+		:far => '#FF3333',
+		:close => '#FF9933',
+		:correct => '#99FF66',
+		:default => '#FFF'
+	}
+	proximity = proximities[:default];
 
 	if guess != nil
 		$guesses -= 1
@@ -22,24 +28,24 @@ def get_locals
 			difference = guess - number
 			if difference > 5
 				response = "Way too high."
-				proximity = 'red'
+				proximity = proximities[:far]
 			else
 				response = "Too high."
-				proximity = 'pink'
+				proximity = proximities[:close]
 			end
 		elsif guess < number
 			difference = number - guess
 			if difference > 5
 				response = "Way too low."
-				proximity = 'red'
+				proximity = proximities[:far]
 			else
 				response = "Too low."
-				proximity = 'pink'
+				proximity = proximities[:close]
 			end
 		else
 			response = "Correct!"
 			correct = true
-			proximity = 'green'
+			proximity = proximities[:correct]
 		end
 	end
 

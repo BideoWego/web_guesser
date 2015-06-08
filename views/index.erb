@@ -3,51 +3,73 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title>Weg Guesser</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<style type="text/css">
 		body{
 			background: <%= proximity %>;
 		}
-		#wrap h1,
-		#wrap h2{
+		h1{
 			text-align: center;
 		}
-		#wrap form{
-			max-width: 256px;
+		#game{
+			background: #fff;
+			max-width: 480px;
 			margin: 0 auto;
+			margin-top: 16px;
 		}
-		#wrap a{
-			display: block;
-			max-width: 128px;
-			margin: 0 auto;
+		#guesses-left{
+			background: #<%= ['FF3333', 'FF5C33', 'FF9933', 'CCFF66', '99FF66', '009933'][$guesses] %>;
+			color: #fff;
 		}
-		#wrap{
-			padding-top: 32px;
-			background: #eee;
-			width: 512px;
-			height: 512px;
-			margin: 64px auto;
+		.cheat{
+			padding: 1em;
+			background: #FF3333;
+			color: #fff;
+		}
+		.cheat,
+		#game,
+		#guesses-left{
+			padding: 1em;
+			border-radius: 1em;
 		}
 		</style>
 	</head>
 	<body>
-		<div id="wrap">
-			<h1>Web Guesser</h1>
-			<% if correct || cheat %>
-				<h2>Secret number: <%= number %></h2>
-			<% end %>
-			<% if guess != '' %>
-				<h2>Your guess: <%= guess %></h2>
-				<h2>Guesses left: <%= $guesses.to_s %></h2>
-			<% end %>
-			<h2><%= response %></h2>
-			<% if ! correct && $guesses > 0 %>
-				<form>
-					<input type="text" name="guess"/>
-					<input type="submit" value="Guess"/>
-				</form>
-			<% else %>
-				<a href="/">New game</a>
-			<% end %>
+		<div class="container">
+
+			<div id="game">
+
+				<h1>Web Guesser</h1>
+
+				<hr/>
+
+				<% if correct || cheat %>
+					<h4<%= (cheat) ? ' class="cheat"' : '' %>>Secret number: <%= number %></h4>
+				<% end %>
+
+				<% if guess != '' %>
+					<h4>Your guess: <%= guess %></h4>
+					<h4 id="guesses-left">Guesses left: <%= $guesses.to_s %></h4>
+				<% end %>
+
+				<h5><%= response %></h5>
+
+				<% if ! correct && $guesses > 0 %>
+					<form>
+						<div class="form-group">
+							<label for="guess">Guess</label>
+							<input type="text" name="guess" id="guess" placeholder="Any whole number between 1 and 100" class="form-control"/>
+						</div>
+						<input type="submit" value="Guess" class="btn btn-primary"/>
+					</form>
+				<% else %>
+					<a href="/" class="btn btn-primary">New game</a>
+				<% end %>
+
+			</div>
+
 		</div>
 	</body>
 </html>
